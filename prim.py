@@ -13,9 +13,9 @@ def prim(G,N,A):
     #todos son candidatos para ser metidos en AR
     cand = inicializarATrue([],len(N))
     #distancia de cada nodo al mas cercano en AR
-    D = inicializarAInfinito([], len(N))
+    D = inicializarAMenosInfinito([], len(N))
     #solucion
-    sol = []
+    sol = anadirAristas(G)
     #escogemos un nodo al azar y lo marcamos como el mas cercano
     D[0]=-1
     #indicamos que es el nodo inicial
@@ -27,10 +27,15 @@ def prim(G,N,A):
         u = buscarMaximo(cand, D)
         #el nodo u pasa a estar en AR
         cand[u]=False
+        
         if padre[u]!=-1:
-            sol.append((padre[u],u))
+            if (padre[u],u) in sol:
+                sol.remove((padre[u],u))
+            else:
+                sol.remove((u,padre[u]))
+            
         for v in adyacentes(G, u):
-            if cand[v]==True and G[u][v] < D[v]:
+            if cand[v]==True and G[u][v] > D[v]:
                 D[v]=G[u][v]
                 padre[v]=u
         cont=cont+1
@@ -45,9 +50,7 @@ g4 = [[ 0, 28,  0,  0,  0, 10,  0],
       [10,  0,  0,  0, 25,  0,  0],
       [ 0, 40,  0, 18, 24,  0,  0]]
 
-N=[1,2,3,4,5,6,7]
-A=9
+N=anadirNodos(g4)
+A=anadirAristas(g4)
 S=prim(g4,N,A)
-print(S)
-          
-        
+print(S) 
