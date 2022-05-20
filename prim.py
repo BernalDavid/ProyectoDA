@@ -9,35 +9,30 @@ from funciones import *
 
 def prim(G,N,A):
     
-    padre=inicializarAInfinito([],len(N))
+    padre=[0,0,0,0,0,0,0]
     #todos son candidatos para ser metidos en AR
     cand = inicializarATrue([],len(N))
     #distancia de cada nodo al mas cercano en AR
-    dist = inicializarAInfinito([], len(N))
+    D = inicializarAInfinito([], len(N))
     #solucion
     sol = []
     #escogemos un nodo al azar y lo marcamos como el mas cercano
-    dist[0]=1
+    D[0]=-1
     #indicamos que es el nodo inicial
     padre[0]=-1
     
     cont = 0
     while cont != len(N):
-        #print(sol)
         #devuelve el nodo con mayor D entre aquellos cuyo Cand es true
-        u = buscarMaximo(cand, dist)
-        print(u)
+        u = buscarMaximo(cand, D)
         #el nodo u pasa a estar en AR
         cand[u]=False
-        
         if padre[u]!=-1:
-            sol.append((padre[u],[u]))
-        
+            sol.append((padre[u],u))
         for v in adyacentes(G, u):
-            if cand[u]==True and G[u][v] < D[v]:
+            if cand[v]==True and G[u][v] < D[v]:
                 D[v]=G[u][v]
                 padre[v]=u
-                 
         cont=cont+1
     return sol
 

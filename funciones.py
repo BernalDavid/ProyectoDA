@@ -24,14 +24,14 @@ def inicializarAInfinito(lista, N):
         lista.append(float('inf'))
     return lista
 
-#dada una lista de nodos y una lista de distancias D, devuelve el nodo con menor D de entre aquellos cuyo cand es true
-def buscarMaximo(lista,D):
-    sol= 0
+#dada una lista de nodos y una lista de distancias D, devuelve el nodo con mayor D de entre aquellos cuyo cand es true
+def buscarMaximo(cand,D):
+    aux= 100
+    sol=0
     for i in range(len(D)):
-        #print("nodo:      ", lista[i])
-        #print("distancia: ", D[i])
-        if lista[i]==True and D[i]>sol:
-            sol=0
+        if cand[i]==True and D[i]<aux:
+            aux=D[i]
+            sol=i
     return sol
 
 
@@ -40,5 +40,5 @@ def adyacentes(G, n):
     lista=[]
     for i in range(len(G)):
         if G[n][i]>0:
-            lista.append(G[n][i])
+            lista.append(i)
     return lista
