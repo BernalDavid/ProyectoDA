@@ -15,6 +15,12 @@ def inicializarATrue(lista,N):
         lista.append(True)
     return lista
 
+#Dada una lista vacia y un tamano, anade las posiciones y las rellena con 0
+def inicializarACero(lista,N):
+    for i in range(N):
+        lista.append(0)
+    return lista
+
 
 #dada una lista vacia y su tamano, devuelve la lista inicializada a infinito
 #posible entrada: lista=[], 3
@@ -33,16 +39,24 @@ def anadirNodos(G):
     return N
 
 
-#dada un grafo (G) inserta en una lista todas sus aristas
+#dado un grafo (G) inserta en una lista todas sus aristas y su peso
 def anadirAristas(G):
     A=[]
     for i in range(len(G)):
         for j in range(i, len(G)):
             if G[i][j]>0:
-                A.append((i,j))
+                A.append((i,j,G[i][j]))
                 
     return A
-               
+
+#dado un grafo (G) calcula el volumen de trafico total (el peso total de las aristas) PARA PRUEBAS
+def calcularTrafico(G):        
+    total=0
+    for i in range(len(G)):
+        for j in range(i,len(G)):
+            total=total+G[i][j]
+    return total
+            
     
 #dada una lista de nodos y una lista de distancias D, devuelve el nodo con mayor D de entre aquellos cuyo cand es true
 def buscarMaximo(cand,D):
@@ -85,3 +99,23 @@ def almacenarNodo(direccion):
         G[j][i]= float(vLinea[2])
         linea = f.readline()
     return (G,N,A)
+
+
+#Dados el trafico total de los tramos abiertos, el numero de tramos cortados, y la lista de tramos a cortar, escribe la informacion en un fichero con el nombre indicado
+def escribirEnFichero(trafico,tramosCerrados,S, direccion):
+    f = open(direccion, 'w')
+    f.write(str(trafico))
+    f.write('\n')
+    f.write(str(tramosCerrados))
+    f.write('\n')
+    for i in range(len(S)):
+        f.write(str(S[i][0]))
+        f.write(' ')
+        f.write(str(S[i][1]))
+        f.write(' ')
+        f.write(str(S[i][2]))
+        f.write('\n')
+    f.close()
+    
+    
+        

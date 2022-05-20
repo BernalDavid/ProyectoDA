@@ -9,7 +9,10 @@ from funciones import *
 
 def prim(G,N,A):
     
-    padre=[0,0,0,0,0,0,0]
+    #calculamos el trafico total de todas las aristas
+    traficoAbierto = 0
+
+    padre= inicializarACero([],len(N))
     #todos son candidatos para ser metidos en AR
     cand = inicializarATrue([],len(N))
     #distancia de cada nodo al mas cercano en AR
@@ -29,17 +32,19 @@ def prim(G,N,A):
         cand[u]=False
         
         if padre[u]!=-1:
-            if (padre[u],u) in sol:
-                sol.remove((padre[u],u))
+            if (padre[u],u, G[padre[u]][u]) in sol:
+                sol.remove((padre[u], u, G[padre[u]][u]))
+                traficoAbierto = traficoAbierto + G[padre[u]][u]
             else:
-                sol.remove((u,padre[u]))
+                sol.remove((u,padre[u], G[padre[u]][u]))
+                traficoAbierto = traficoAbierto + G[padre[u]][u]
             
         for v in adyacentes(G, u):
             if cand[v]==True and G[u][v] > D[v]:
                 D[v]=G[u][v]
                 padre[v]=u
         cont=cont+1
-    return sol
+    return (traficoAbierto,len(sol),sol)
 
 '''
 #Grafo de la taoria para hacer pruebas
@@ -53,12 +58,17 @@ g4 = [[ 0, 28,  0,  0,  0, 10,  0],
 
 N=anadirNodos(g4)
 A=anadirAristas(g4)
-S=prim(g4,N,A)
+(trafico, tramos, S )=prim(g4,N,A)
+print(trafico)
+print(tramos)
 print(S)
+escribirEnFichero(trafico,tramos,S, 'pruebaSalida.txt')
+'''
 '''
 
-(G,n,a) = almacenarNodo('pruebas/em_7n16a.txt')
+(G,n,a) = almacenarNodo('modeloA/em_7n16a.txt')
 N = anadirNodos(G)
 A = anadirAristas(G)
 solucion =prim(G,N,A)
 print(solucion)
+'''
