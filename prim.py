@@ -41,7 +41,8 @@ def prim(G,N,A):
         cont=cont+1
     return sol
 
-
+'''
+#Grafo de la taoria para hacer pruebas
 g4 = [[ 0, 28,  0,  0,  0, 10,  0],
       [28,  0, 16,  0,  0,  0, 40],
       [ 0, 16,  0, 12,  0,  0,  0],
@@ -53,4 +54,11 @@ g4 = [[ 0, 28,  0,  0,  0, 10,  0],
 N=anadirNodos(g4)
 A=anadirAristas(g4)
 S=prim(g4,N,A)
-print(S) 
+print(S)
+'''
+
+(G,n,a) = almacenarNodo('modeloA/em_7n16a.txt')
+N = anadirNodos(G)
+A = anadirAristas(G)
+solucion =prim(G,N,A)
+print(solucion)

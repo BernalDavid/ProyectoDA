@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 20 11:01:26 2022
+
+@author: david
+"""
+
+#En este fichero se guardan las funciones auxiliares que se necesiten
+
+#dada una lista vacia y su tamano, devuelve la lista inicializada a true
+#posible entrada: lista=[], 3
 #posible salida: lista= [true, true, true]
 def inicializarATrue(lista,N):
     for i in range(N):
@@ -51,3 +62,26 @@ def adyacentes(G, n):
         if G[n][i]>0:
             lista.append(i)
     return lista
+
+
+#dada la direccion de un fichero con la informacion del grafo, guarda dicha informacion en las variables G (matriz 2x2), N (valor) y A (valor)
+def almacenarNodo(direccion):
+    f = open(direccion, 'r')
+    N = int(f.readline())
+    A = int(f.readline())
+    G=[]
+    
+    for i in range(N):
+        G.append([])
+        for j in range(N):
+            G[i].append(0)
+    linea = f.readline()
+    
+    while linea != "":
+        vLinea = linea.split(" ")        
+        i= int(vLinea[0])
+        j= int(vLinea[1])
+        G[i][j]= float(vLinea[2])
+        G[j][i]= float(vLinea[2])
+        linea = f.readline()
+    return (G,N,A)
