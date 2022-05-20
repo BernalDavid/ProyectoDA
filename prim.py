@@ -57,7 +57,7 @@ S=prim(g4,N,A)
 print(S)
 '''
 
-(G,n,a) = almacenarNodo('modeloA/em_7n16a.txt')
+(G,n,a) = almacenarNodo('pruebas/em_7n16a.txt')
 N = anadirNodos(G)
 A = anadirAristas(G)
 solucion =prim(G,N,A)
