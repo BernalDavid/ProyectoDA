@@ -24,7 +24,21 @@ def inicializarAInfinito(lista, N):
         lista.append(float('inf'))
     return lista
 
-#TODO
 #dada una lista de nodos y una lista de distancias D, devuelve el nodo con menor D de entre aquellos cuyo cand es true
 def buscarMaximo(lista,D):
-    return True
+    sol= 0
+    for i in range(len(D)):
+        #print("nodo:      ", lista[i])
+        #print("distancia: ", D[i])
+        if lista[i]==True and D[i]>sol:
+            sol=0
+    return sol
+
+
+#dado un grafo (G) y un nodo (n), devuelve una lista de nodos adyacentes a n
+def adyacentes(G, n):
+    lista=[]
+    for i in range(len(G)):
+        if G[n][i]>0:
+            lista.append(G[n][i])
+    return lista
