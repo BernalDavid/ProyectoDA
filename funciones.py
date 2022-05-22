@@ -4,8 +4,28 @@ Created on Fri May 20 11:01:26 2022
 
 @author: david
 """
+import random
 
-#En este fichero se guardan las funciones auxiliares que se necesiten
+'''En este fichero se guardan las funciones auxiliares que se necesiten'''
+
+#Dada una particion de un nodo, devuelve la etiqueta del conjunto al que pertenece el nodo
+def buscar(particion, a):
+    aux = a
+    while particion[aux] > 0:
+        aux = particion[aux]
+    
+    return aux
+
+
+#Dada una partición y dos nodos, una ambos nodos en una unica particion
+def unir(particion, a, b):
+    if particion[a] < particion[b]:
+        particion[b] = a
+    elif particion[a] == particion[b]:
+        particion[a] = particion[a] -1
+    else:
+        particion[a] = b
+              
 
 #dada una lista vacia y su tamano, devuelve la lista inicializada a true
 #posible entrada: lista=[], 3
@@ -14,6 +34,7 @@ def inicializarATrue(lista,N):
     for i in range(N):
         lista.append(True)
     return lista
+
 
 #Dada una lista vacia y un tamano, anade las posiciones y las rellena con 0
 def inicializarACero(lista,N):
@@ -49,6 +70,7 @@ def anadirAristas(G):
                 
     return A
 
+
 #dado un grafo (G) calcula el volumen de trafico total (el peso total de las aristas) PARA PRUEBAS
 def calcularTrafico(G):        
     total=0
@@ -79,7 +101,7 @@ def adyacentes(G, n):
 
 
 #dada la direccion de un fichero con la informacion del grafo, guarda dicha informacion en las variables G (matriz 2x2), N (valor) y A (valor)
-def almacenarNodo(direccion):
+def almacenarGrafo(direccion):
     f = open(direccion, 'r')
     N = int(f.readline())
     A = int(f.readline())
@@ -116,6 +138,35 @@ def escribirEnFichero(trafico,tramosCerrados,S, direccion):
         f.write(str(S[i][2]))
         f.write('\n')
     f.close()
-    
-    
-        
+
+
+#Dado un numero de nodos y de aristas, genera un grafo aleatorio y lo escribe en un fichero
+def generarGrafo(nodos, aristas):
+    listaNodos = list(range(nodos))
+    listaPesos = list(range(1,50))
+    listaAristas = []
+    f = open("grafo1.txt",'w')
+    f.write(str(nodos))
+    f.write('\n')
+    f.write(str(aristas))
+    f.write('\n')
+    i=0
+    while i < aristas:
+        nodo1 = listaNodos[i % nodos]
+        if i < nodos-1:
+            nodo2 = listaNodos[(i % nodos)+1]
+        elif i==nodos-1:
+            nodo2 = 0
+        else:
+            nodo2 = random.choice(listaNodos)
+        if nodo1 != nodo2:
+            if (nodo1,nodo2) not in listaAristas:
+                listaAristas.append((nodo1,nodo2))
+                f.write(str(nodo1))
+                f.write(' ')
+                f.write(str(nodo2))
+                f.write(' ')
+                f.write(str(random.choice(listaPesos)))
+                f.write('\n')
+                i=i+1 
+    f.close()
